@@ -1,0 +1,7 @@
+__pycache__/
+__pypackages__
+.vscode
+.pdm-python
+pdm.lock
+pyproject.toml
+*.log
