@@ -5,3 +5,6 @@ __pypackages__
 pdm.lock
 pyproject.toml
 *.log
+
+.idea
+node_module
