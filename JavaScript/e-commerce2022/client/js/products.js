@@ -1,51 +1,51 @@
 const products = [
     {
         id: 1,
-        productName: "Laptop",
-        price: 15000,
+        productName: "Coca 1,5L",
+        price: 700,
         quantity: 1,
-        img: "/client/media/laptop.png"
+        img: "/client/media/coca_grande.png"
     },
     {
         id: 2,
-        productName: "TV",
-        price: 80000,
+        productName: "Sprite 1,5L",
+        price: 700,
         quantity: 1,
-        img: "/client/media/tv.png"
+        img: "/client/media/sprite.png"
     },
     {
         id: 3,
-        productName: "Xbox",
-        price: 20000,
+        productName: "Pack Coca",
+        price: 5000,
         quantity: 1,
-        img: "/client/media/xbox.png"
+        img: "/client/media/coca.png"
     },
     {
         id: 4,
-        productName: "Mouse",
-        price: 10000,
+        productName: "Pack Brahma",
+        price: 3000,
         quantity: 1,
-        img: "/client/media/mouse.png"
+        img: "/client/media/brahma.png"
     },
     {
         id: 5,
-        productName: "Keyboard",
-        price: 45000,
+        productName: "Pack Heineken",
+        price: 4000,
         quantity: 1,
-        img: "/client/media/keyboard.png"
+        img: "/client/media/heineken.png"
     },
     {
         id: 6,
-        productName: "PC",
-        price: 250000,
+        productName: "Paty",
+        price: 1200,
         quantity: 1,
-        img: "/client/media/pc.png"
+        img: "/client/media/paty.png"
     },
     {
         id: 7,
-        productName: "Monitor",
-        price: 65000,
+        productName: "Lays",
+        price: 600,
         quantity: 1,
-        img: "/client/media/monitor.png"
+        img: "/client/media/lays.png"
     },
 ]
