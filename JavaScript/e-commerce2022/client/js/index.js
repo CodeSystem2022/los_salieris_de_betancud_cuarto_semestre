@@ -2,17 +2,22 @@ const $shopContent = document.querySelector("#shopContent");
 const cart = [];
 
 const addToCart = product => {
+  /* 
+  Busca un producto por id en la lista de productos del carrito,
+  si lo encuentra aumenta en 1 su propiedad "quantity",
+  si no lo encuentra lo agrega al listado "cart"
+  */
   const itemCartIndex = cart.findIndex(item => item.id == product.id);
-  if (itemCartIndex === -1) {
-    cart.push({
-      ...product,
-      quantity: 1
-    });
-  } else {
+  if (itemCartIndex !== -1) {
     cart[itemCartIndex] = {
       ...product,
       quantity: cart[itemCartIndex].quantity + 1
     };
+  } else {
+    cart.push({
+      ...product,
+      quantity: 1
+    });
   }
 };
 
