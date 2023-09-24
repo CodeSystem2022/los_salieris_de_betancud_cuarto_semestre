@@ -1,7 +1,11 @@
+const { json } = require("body-parser");
+const { application } = require("express");
+const { METHODS } = require("http");
+
 const $cartModal = document.getElementById("modal-container");
 const $cartOverlay = document.getElementById("modal-overlay");
 const $cartButton = document.getElementById("cart-btn");
-
+const $cartCounter = document.getElementById("cart-counter");
 
 function clearCart() {
   $cartModal.innerHTML = "";
@@ -15,6 +19,7 @@ function increseItemCart (productContainer, product, totalPriceContainer) {
   $quantityInput.textContent = newQuantity;
   cart[itemCartIndex].quantity = newQuantity;
   setTotalPrice(totalPriceContainer);
+  displayCartCounter();
 };
 
 function decreseItemCart(productContainer, product, totalPriceContainer) {
@@ -30,6 +35,7 @@ function decreseItemCart(productContainer, product, totalPriceContainer) {
     cart.splice(itemCartIndex, 1);
   }
   setTotalPrice(totalPriceContainer);
+  displayCartCounter();
 };
 
 function deleteItemCart(productContainer, product, totalPriceContainer) {
@@ -37,6 +43,7 @@ function deleteItemCart(productContainer, product, totalPriceContainer) {
   productContainer.remove();
   cart.splice(itemCartIndex, 1);
   setTotalPrice(totalPriceContainer);
+  displayCartCounter();
 }
 
 function getTotalPrice() {
@@ -113,9 +120,67 @@ const displayCart = () => {
   $modalFooter.className = "modal-footer";
   $modalFooter.innerHTML = `
   <div className="total-price">Total: ${getTotalPrice()}</div>
+  <button class="btn-primary" id="checkout-btn"> Go to checkout <button>
+  <div id="button-checkout"><div>
   `;
-  // Agrega elementos al header del modal
+
+  // Agrega elementos al header del modal  
   $modalHeader.append($modalTitle, $modalClose);
+
+  //viene de mercado pago, inicia una instancia de mp. Locale, se refiere a la moneda
+  const mercadopago = new MercadoPago('<PUBLIC_KEY>', {
+    locale: 'es-AR' // The most common are: 'pt-BR', 'es-AR' and 'en-US'
+  });
+
+  //Boton que dispara todo el codigo de MP
+  const checkoutButton = $modalFooter.querySelector("checkout-btn");
+
+  checkoutButton.addEventListener("click", function(){
+    //Removemos el boton, porque aparecería otro y se generaría otra orden de compra
+    checkoutButton.remove();
+    const orderData ={
+      quantity: 1,
+      description: "Compra de e-commerce",
+      price: totalPrice,
+    };
+    fetch("http://localhost;8080/create_preference", {
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    
+    }).then(function(response){
+      return response.json();
+    }).then(function(preference){
+      createCheckOutButton(preferenceId);
+    }).catch(function(){
+      alert("Unexpected error");
+    })
+
+    function createCheckoutButton(preferenceId) {
+      // Initialize the checkout
+      const bricksBuilder = mercadopago.bricks();
+      const renderComponent = async (bricksBuilder) => {
+        //if (window.checkoutButton) window.checkoutButton.unmount();
+        await bricksBuilder.create(
+          'wallet',
+          'button-checkout', // class/id where the payment button will be displayed
+          {
+            initialization: {
+              preferenceId: preferenceId
+            },
+            callbacks: {
+              onError: (error) => console.error(error),
+              onReady: () => {}
+            }
+          }
+        );
+      };
+      window.checkoutButton =  renderComponent(bricksBuilder);
+    }
+    
+
   // Agrega elementos al contenedor del modal
   $cartModal.append($modalHeader);
   // Carga los productos al contenedor del modal
@@ -136,3 +201,9 @@ $cartButton.addEventListener("click", event => {
   clearCart();
   displayCart();
 });
+
+const displayCartCounter = () =>{
+  const cartlenght = cart.reduce((acc, el) => el.quantity);
+  $cartCounter.style.display = "block";
+  $cartCounter.innerText = cartlenght;
+}

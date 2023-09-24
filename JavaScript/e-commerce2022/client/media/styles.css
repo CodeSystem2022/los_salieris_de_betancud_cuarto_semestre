@@ -39,6 +39,20 @@
     border-radius: 50%;
     transition: transform .2s ease-in-out;
 }
+.cart-counter{
+    display: none;
+    position: fixed;
+    top: 90vh;
+    right: 27px;
+    color: white;
+    text-align: center;
+    background-color: red;
+    padding: 4px;
+    border-radius: 50%;
+    height: 17px;
+    width: 17px;
+    font-size: 16px;
+}
 .cart-btn:hover {
     cursor: pointer;
     opacity: .9;
