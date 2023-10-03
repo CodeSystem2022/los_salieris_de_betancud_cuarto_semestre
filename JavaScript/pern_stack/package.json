@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon .",
     "start": "node ."
@@ -22,6 +23,8 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@types/express": "^4.17.18",
+    "@types/morgan": "^1.9.6",
     "eslint": "^8.50.0",
     "nodemon": "^3.0.1"
   }
