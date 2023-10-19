@@ -11,12 +11,12 @@ const router = Router();
 
 router.get('/tareas', isAtuh, listarTareas);
 
-router.get('/tarea/:id',listarTarea);
+router.get('/tareas/:id',listarTarea);
 
-router.post('/tareas', crearTarea);
+router.post('/tareas', isAtuh, crearTarea);
 
-router.put('/tarea/:id', actualizarTarea);
+router.put('/tareas/:id', actualizarTarea);
 
-router.delete('/tarea/:id', eliminarTarea);
+router.delete('/tareas/:id', eliminarTarea);
 
 export default router;
