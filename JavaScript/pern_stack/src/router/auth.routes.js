@@ -1,14 +1,15 @@
-import { Router } from "express";
-import { singin, singup, singout, profile } from "../controllers/auth.controller.js";
+import Router from "express-promise-router";
+import { signin, signup, signout, profile } from "../controllers/auth.controller.js";
+import { isAtuh } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.post('/singin', singin);
+router.post('/signin', signin);
 
-router.post('/singup', singup);
+router.post('/signup', signup);
 
-router.post('/singout', singout);
+router.post('/signout', signout);
 
-router.get('/profile', profile);
+router.get('/profile', isAtuh, profile);
 
 export default router;
