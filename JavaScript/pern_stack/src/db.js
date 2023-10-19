@@ -4,8 +4,8 @@ export const pool = new pg.Pool({
     port: 5432,
     host: "localhost",
     user: "postgres",
-    password: "admin",
-    databes: "PERN",
+    password: process.env.DB_PASSWORD || "admin",
+    database: "PERN",
 });
 
 pool.on("connect", ()=>{

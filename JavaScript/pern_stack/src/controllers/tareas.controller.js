@@ -1,34 +1,32 @@
 import {pool} from "../db.js";
 
 export const listarTareas = async (req, res,next) =>{
+    console.log(req.usuarioId);
     try {
-        const resultado = await pool.query('SELECT = FROM tareas');
-    console.log(resultado);
-    return res.json(resultado.rows);
+        const resultado = await pool.query('SELECT * FROM tareas');
+        return res.json(resultado.rows);
     } catch (error) {
         next(error);
-        
     }
-    
 }
 
 export const listarTarea = async (req, res) => {
-    const resultado = await pool.query('SELECT = FROM tareas WHERE id = 1$', [req.params.id]);
+    const resultado = await pool.query('SELECT * FROM tareas WHERE id = 1$', [req.params.id]);
     if(resultado.rowCount===0){
-        return res.status(404).json{
+        return res.status(404).json({
             message: 'La tarea no existe'
-        }};
-    }
+        })
+    };
     return res.json(resultado.rows[0]);
+}
 
 
-export const crearTarea = async(requ,res)=>{
+export const crearTarea = async(req,res)=>{
     const {titulo,descripcion} = req.body;
-    
-
-    try {   const {rows} = await pool.query('INSERT INTO tareas ( titulo, descripcion ) VALUES ($1, $2)', [titulo ,descripcion]);
-    console.log(rows);
-    res.send('Creando tarea');
+    try {
+        const {rows} = await pool.query('INSERT INTO tareas ( titulo, descripcion ) VALUES ($1, $2)', [titulo ,descripcion]);
+        console.log(rows);
+        res.send('Creando tarea');
     } catch (error) {
         if (error.code === '23505') {
             return res.send('Ya existe una tarea con ese titulo');
