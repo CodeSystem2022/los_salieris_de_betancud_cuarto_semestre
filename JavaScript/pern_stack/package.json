@@ -2,7 +2,7 @@
   "name": "pern_stack",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "backend/index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon .",
